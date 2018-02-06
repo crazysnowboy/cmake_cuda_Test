@@ -70,6 +70,7 @@ LIST(APPEND LIBRARIES
 
 file(GLOB_RECURSE Cuda_SRCS "${PROJECT_SOURCE_DIR}/src/*.cu")
 CUDA_COMPILE(cuda_objs ${Cuda_SRCS})
+add_custom_target(custom_target DEPENDS ${cuda_objs})
 
 file(GLOB_RECURSE C_SRCS "${PROJECT_SOURCE_DIR}/src/*.c")
 file(GLOB_RECURSE CPP_SRCS "${PROJECT_SOURCE_DIR}/src/*.cpp")
@@ -100,6 +101,8 @@ endforeach(source)
 
 #cpp mains
 
+
+
 foreach(source ${Mains_cpp})
     get_filename_component(SourceName ${source} NAME_WE)
     set(ExeName ${SourceName})
@@ -115,6 +118,8 @@ foreach(source ${Mains_cpp})
             ${LIBRARIES}
 
             )
+    add_dependencies(${ExeName} custom_target)
+    
     set_target_properties(${ExeName} PROPERTIES
             ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin"
             LIBRARY_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin"
