@@ -14,7 +14,8 @@
 static cudaError_t
 cudaErrCheck_helper(cudaError_t result, const char *file, int line)
 {
-    if (result != cudaSuccess) {
+    if (result != cudaSuccess)
+    {
         fprintf(stderr, "CUDA Runtime Error: %s at %s, line %d\n",
                 cudaGetErrorString(result), file, line);
         exit(result);
@@ -42,7 +43,8 @@ print_usage(const char *prog)
 int
 main(int argc, const char **argv)
 {
-    if (argc != 2) {
+    if (argc != 2)
+    {
         print_usage(argv[0]);
         return -1;
     }
@@ -54,9 +56,10 @@ main(int argc, const char **argv)
     unsigned int i;
 
     printf("Memory Copy Test: %f GB\n", memsize / 1073741824.0);
-    
+
     h_data_pagable = (char *)malloc(memsize);
-    if (h_data_pagable == NULL) {
+    if (h_data_pagable == NULL)
+    {
         perror("malloc");
         return -1;
     }
@@ -66,7 +69,8 @@ main(int argc, const char **argv)
     // test pagable memory copy
     printf("Pagable Memory Copy\n");
     start = cputimer_sec();
-    for (i = 0; i < nloop; i++) {
+    for (i = 0; i < nloop; i++)
+    {
         cudaErrCheck( cudaMemcpy(d_data, h_data_pagable, memsize,
                                  cudaMemcpyHostToDevice) );
         kernel_null<<<1, 1>>>();
@@ -81,7 +85,8 @@ main(int argc, const char **argv)
     // test pinned memory copy
     printf("Pinned Memory Copy\n");
     start = cputimer_sec();
-    for (i = 0; i < nloop; i++) {
+    for (i = 0; i < nloop; i++)
+    {
         cudaErrCheck( cudaMemcpy(d_data, h_data_pinned, memsize,
                                  cudaMemcpyHostToDevice) );
         kernel_null<<<1, 1>>>();

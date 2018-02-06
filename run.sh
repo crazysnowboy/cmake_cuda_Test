@@ -2,8 +2,9 @@
 
 
 cd build
+rm -rf *
 cmake  ..
-make
+make -j8
 cd ..
 
 

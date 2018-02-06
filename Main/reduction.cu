@@ -16,7 +16,8 @@
 static cudaError_t
 cudaErrCheck_helper(cudaError_t result, const char *file, int line)
 {
-    if (result != cudaSuccess) {
+    if (result != cudaSuccess)
+    {
         fprintf(stderr, "CUDA Runtime Error: %s at %s, line %d\n",
                 cudaGetErrorString(result), file, line);
         exit(result);
@@ -38,7 +39,8 @@ print_usage(const char *prog)
 int
 main(int argc, const char **argv)
 {
-    if (argc != 2) {
+    if (argc != 2)
+    {
         print_usage(argv[0]);
         return -1;
     }
@@ -57,7 +59,8 @@ main(int argc, const char **argv)
 
     // allocate memory
     h_data = (int *)malloc(memsize);
-    if (h_data == NULL) {
+    if (h_data == NULL)
+    {
         perror("malloc");
         return -1;
     }
@@ -65,7 +68,8 @@ main(int argc, const char **argv)
     cudaErrCheck( cudaMalloc((void **)&d_res, memsize/block_size + 1) );
 
     // fill in the data
-    for (data = 0; data < nint/2; data++) {
+    for (data = 0; data < nint/2; data++)
+    {
         h_data[2*data] = data;
         h_data[2*data+1] = -data;
     }
@@ -80,7 +84,8 @@ main(int argc, const char **argv)
     reduction<int>((const int *)d_data, d_res, nint, block_size);
     cudaErrCheck( cudaGetLastError() );
     cudaErrCheck( cudaMemcpy(&data, d_res, sizeof(int), cudaMemcpyDeviceToHost) );
-    if (data != 0) {
+    if (data != 0)
+    {
         printf("  Correctness Test Failed!\n");
         return -1;
     }
@@ -88,7 +93,8 @@ main(int argc, const char **argv)
 
     // performance test
     start = cputimer_sec();
-    for (i = 0; i < nloop; i++) {
+    for (i = 0; i < nloop; i++)
+    {
         reduction<int>((const int *)d_data, d_res, nint, block_size);
     }
     cudaErrCheck( cudaDeviceSynchronize() );
