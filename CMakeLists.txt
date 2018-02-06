@@ -29,14 +29,11 @@ set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} -std=c++11 )
 #INCLUDE
 
 
-message("crazylog--------CUDA_INCLUDE_DIRS=${CUDA_INCLUDE_DIRS}")
-set(CUDA_COMMON_INC "/usr/local/cuda-8.0/samples/common/inc")
-
 LIST(APPEND INCLUDE_DIR
 
             ${CMAKE_SOURCE_DIR}/include
             ${CMAKE_SOURCE_DIR}/include/libmatrix
-
+            ${CMAKE_SOURCE_DIR}/include/common
             ${CUDA_INCLUDE_DIRS}
             ${GFLAGS_INCLUDE_DIR}
             ${GLOG_INCLUDE_DIR}
@@ -119,7 +116,7 @@ foreach(source ${Mains_cpp})
 
             )
     add_dependencies(${ExeName} custom_target)
-    
+
     set_target_properties(${ExeName} PROPERTIES
             ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin"
             LIBRARY_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin"

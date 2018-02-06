@@ -9,7 +9,7 @@
 /* Includes, cuda */
 #include <cuda_runtime.h>
 #include <cublas_v2.h>
-#include <helper_cuda.h>
+// #include <helper_cuda.h>
 
 #include <cuda_memory_manager.h>
 
